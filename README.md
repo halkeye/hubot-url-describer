@@ -1,5 +1,7 @@
 # hubot-url-describer
 
+[![Build Status](https://travis-ci.org/halkeye/hubot-url-describer.png)](https://travis-ci.org/halkeye/hubot-url-describer)
+
 Simple hubot script that grabs a url and outputs the title
 
 ## Getting Started
