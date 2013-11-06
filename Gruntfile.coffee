@@ -22,7 +22,7 @@ module.exports = (grunt)->
         no_trailing_whitespace:
           level: 'error'
         max_line_length:
-          level: 'warn'
+          level: 'ignore'
     simplemocha:
       all:
         src: [
@@ -45,7 +45,7 @@ module.exports = (grunt)->
         tasks: ['coffeelint:scripts', 'simplemocha']
       coffeeTest:
         files: '<%= coffeelint.test.src %>'
-        tasks: ['coffeelint:test', 'simplemocha']
+        tasks: [ 'coffeelint:test', 'simplemocha']
     clean: ['out/']
 
   # plugins.

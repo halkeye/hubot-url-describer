@@ -2,65 +2,71 @@
 
 Hubot = require('hubot')
 Path = require('path')
+sinon = require('sinon')
+should = require('should')
+nock = require('nock')
 
 adapterPath = Path.join Path.dirname(require.resolve 'hubot'), "src", "adapters"
 robot = Hubot.loadBot adapterPath, "shell", "true", "MochaHubot"
+{TextMessage} = require Path.join(adapterPath,'../message')
 
 hubot_url_describer = require('../scripts/hubot-url-describer')(robot)
 
-###
-======== A Handy Little Mocha Reference ========
-https://github.com/visionmedia/should.js
-https://github.com/visionmedia/mocha
+user = {}
+send_message = (msg) ->
+  user = robot.brain.userForId '1', name: 'Shell', room: 'Shell'
+  robot.adapter.receive new TextMessage user, msg, 'messageId'
 
-Mocha hooks:
-  before ()-> # before describe
-  after ()-> # after describe
-  beforeEach ()-> # before each it
-  afterEach ()-> # after each it
+urls = [
+  [
+    'https://google.com',
+    'Google'
+  ],
+  [
+    'https://social.icims.com/job/Sr-Manager-Security-Job-US-TX-Austin-10268652.html?isd_source=linkedin&isd_pub=248215#',
+    'Sr. Manager, Security | iCIMS Social Distribution'
+  ],
+  [
+    'http://www.youtube.com/watch?v=jeMO9WseFck',
+    'Rooster Teeth Animated Adventures - Relaxed Gav & Lost Keys - YouTube'
+  ],
+  [
+    'http://imgur.com/gallery/pqyzSW8',
+    'I owe you my life - Imgur',
+  ]
+]
 
-Should assertions:
-  should.exist('hello')
-  should.fail('expected an error!')
-  true.should.be.ok
-  true.should.be.true
-  false.should.be.false
+nock('https://google.com')
+  .defaultReplyHeaders({'Content-Type': 'text/html'})
+  .get('/')
+  .replyWithFile(200, __dirname + '/replies/google.html')
 
-  (()-> arguments)(1,2,3).should.be.arguments
-  [1,2,3].should.eql([1,2,3])
-  should.strictEqual(undefined, value)
-  user.age.should.be.within(5, 50)
-  username.should.match(/^\w+$/)
+nock('https://social.icims.com')
+  .defaultReplyHeaders({'Content-Type': 'text/html'})
+  .get('/job/Sr-Manager-Security-Job-US-TX-Austin-10268652.html?isd_source=linkedin&isd_pub=248215')
+  .replyWithFile(200, __dirname + '/replies/job-posting.html')
 
-  user.should.be.a('object')
-  [].should.be.an.instanceOf(Array)
+nock('http://www.youtube.com')
+  .defaultReplyHeaders({'Content-Type': 'text/html'})
+  .get('/watch?v=jeMO9WseFck')
+  .replyWithFile(200, __dirname + '/replies/youtube.html')
 
-  user.should.have.property('age', 15)
-
-  user.age.should.be.above(5)
-  user.age.should.be.below(100)
-  user.pets.should.have.length(5)
-
-  res.should.have.status(200) #res.statusCode should be 200
-  res.should.be.json
-  res.should.be.html
-  res.should.have.header('Content-Length', '123')
-
-  [].should.be.empty
-  [1,2,3].should.include(3)
-  'foo bar baz'.should.include('foo')
-  { name: 'TJ', pet: tobi }.user.should.include({ pet: tobi, name: 'TJ' })
-  { foo: 'bar', baz: 'raz' }.should.have.keys('foo', 'bar')
-
-  (()-> throw new Error('failed to baz')).should.throwError(/^fail.+/)
-
-  user.should.have.property('pets').with.lengthOf(4)
-  user.should.be.a('object').and.have.property('name', 'tj')
-###
+nock('http://imgur.com')
+  .defaultReplyHeaders({'Content-Type': 'text/html'})
+  .get('/gallery/pqyzSW8')
+  .replyWithFile(200, __dirname + '/replies/imgur.html')
 
 describe 'hubot_url_describer', ()->
-  describe '#exist()', ()->
-
-    it 'should', ()->
-      hubot_url_describer.should.exist()
-
+  urls.forEach (url) ->
+    describe url[0], ()->
+      before (done) ->
+        robot.adapter.send = sinon.spy()
+        send_message url[0]
+        # hack to wait for robot to finish fetching and returning
+        a = setInterval ->
+          if robot.adapter.send.args.length > 0
+            clearInterval a
+            done()
+        , 500
+      it 'output title', ()->
+        robot.adapter.send.args[0][0].should.eql(url[1])
