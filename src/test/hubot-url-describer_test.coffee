@@ -2,6 +2,7 @@
 
 Hubot = require('hubot')
 Path = require('path')
+Url = require 'url'
 sinon = require('sinon')
 should = require('should')
 nock = require('nock')
@@ -20,41 +21,39 @@ send_message = (msg) ->
 urls = [
   [
     'https://google.com',
+    'google.html',
     'Google'
   ],
   [
     'https://social.icims.com/job/Sr-Manager-Security-Job-US-TX-Austin-10268652.html?isd_source=linkedin&isd_pub=248215#',
+    'job-posting.html',
     'Sr. Manager, Security | iCIMS Social Distribution'
   ],
   [
     'http://www.youtube.com/watch?v=jeMO9WseFck',
+    'youtube.html',
     'Rooster Teeth Animated Adventures - Relaxed Gav & Lost Keys - YouTube'
   ],
   [
     'http://imgur.com/gallery/pqyzSW8',
+    'imgur.html',
     'I owe you my life - Imgur',
+  ],
+  # Description could be good here
+  [
+    'http://www.mypebblefaces.com/apps/1219/1597/',
+    'mypebblefaces.html',
+    'Mac System 3 | My Pebble Faces'
   ]
 ]
 
-nock('https://google.com')
-  .defaultReplyHeaders({'Content-Type': 'text/html'})
-  .get('/')
-  .replyWithFile(200, __dirname + '/replies/google.html')
-
-nock('https://social.icims.com')
-  .defaultReplyHeaders({'Content-Type': 'text/html'})
-  .get('/job/Sr-Manager-Security-Job-US-TX-Austin-10268652.html?isd_source=linkedin&isd_pub=248215')
-  .replyWithFile(200, __dirname + '/replies/job-posting.html')
-
-nock('http://www.youtube.com')
-  .defaultReplyHeaders({'Content-Type': 'text/html'})
-  .get('/watch?v=jeMO9WseFck')
-  .replyWithFile(200, __dirname + '/replies/youtube.html')
-
-nock('http://imgur.com')
-  .defaultReplyHeaders({'Content-Type': 'text/html'})
-  .get('/gallery/pqyzSW8')
-  .replyWithFile(200, __dirname + '/replies/imgur.html')
+# mock up the requests
+urls.forEach (url) ->
+  data = Url.parse(url[0])
+  nock(data.protocol + '//' + data.hostname)
+    .defaultReplyHeaders({'Content-Type': 'text/html'})
+    .get(data.path)
+    .replyWithFile(200, __dirname + '/replies/'+ url[1])
 
 describe 'hubot_url_describer', ()->
   urls.forEach (url) ->
@@ -67,6 +66,6 @@ describe 'hubot_url_describer', ()->
           if robot.adapter.send.args.length > 0
             clearInterval a
             done()
-        , 500
+        , 100
       it 'output title', ()->
-        robot.adapter.send.args[0][0].should.eql(url[1])
+        robot.adapter.send.args[0][0].should.eql(url[2])
