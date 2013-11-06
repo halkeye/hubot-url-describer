@@ -1,13 +1,13 @@
 # hubot-url-describer
 
-The best project ever.
+Simple hubot script that grabs a url and outputs the title
 
 ## Getting Started
 1. Install the module: `npm install --save hubot-url-describer`
 2. Add it `hubot-url-describer` to your external-scripts.json file in your hubot directory
 
 ## Configuration
-_(Coming soon)_
+_(Nothing yet)_
 
 ## Release History
 _(Nothing yet)_
