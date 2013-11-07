@@ -44,13 +44,19 @@ urls = [
     'http://www.mypebblefaces.com/apps/1219/1597/',
     'mypebblefaces.html',
     'Mac System 3 | My Pebble Faces'
+  ],
+  # this should be ignored
+  [
+    'https://lh6.googleusercontent.com/-hddEYyXVeZM/AAAAAAAAAAI/AAAAAAAAAAA/ghwEL1-FHdE/s48-c-k-no/photo.jpg',
+    'gravatar.png',
+    false
   ]
 ]
 
 # mock up the requests
 urls.forEach (url) ->
   data = Url.parse(url[0])
-  nock(data.protocol + '//' + data.hostname)
+  n = nock(data.protocol + '//' + data.hostname)
     .defaultReplyHeaders({'Content-Type': 'text/html'})
     .get(data.path)
     .replyWithFile(200, __dirname + '/replies/'+ url[1])
@@ -62,10 +68,12 @@ describe 'hubot_url_describer', ()->
         robot.adapter.send = sinon.spy()
         send_message url[0]
         # hack to wait for robot to finish fetching and returning
-        a = setInterval ->
-          if robot.adapter.send.args.length > 0
-            clearInterval a
-            done()
+        setTimeout ->
+          done()
         , 100
+
       it 'output title', ()->
-        robot.adapter.send.args[0][0].should.eql(url[2])
+        if (url[2] == false)
+          false.should.eql(false)
+        else
+          robot.adapter.send.args[0][0].should.eql(url[2])

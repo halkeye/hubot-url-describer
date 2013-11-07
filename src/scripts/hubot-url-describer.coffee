@@ -19,10 +19,16 @@
 
 'use strict'
 request = require 'request'
+Url = require 'url'
+Querystring = require 'querystring'
+Path = require 'path'
 HtmlParser = require 'htmlparser2'
 _ = require 'underscore'
 _S = require 'underscore.string'
 
+ignore_extensions = ['.png','.jpg','.jpeg','.gif','.txt','.zip','.tar.bz','.js','.css']
+if process.env.HUBOT_HTTP_INFO_IGNORE_EXTS
+  ignore_extensions = process.env.HUBOT_HTTP_INFO_IGNORE_EXTS.split(',')
 regex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/i
 module.exports = (robot) ->
   robot.hear regex, (msg) ->
@@ -35,7 +41,6 @@ module.exports = (robot) ->
       dom = _.findWhere dom, { type: 'tag' }
       # Head Tag
       dom = _.findWhere dom.children, { name: 'head' }
-
 
       dom.children.forEach (elm) ->
         if ( title == "" )
@@ -54,11 +59,16 @@ module.exports = (robot) ->
       else
         # err
 
+    urldata = Url.parse(url)
+    path = urldata.path.split('?')[0]
+    ext = Path.extname(path)
+    if (ext && ignore_extensions.indexOf(ext) != -1)
+      return
+
     request.get url, {}, (err,res,body) ->
       if res.headers['content-type'].indexOf('text/html') != 0
         return
       new HtmlParser.Parser(handler).parseComplete(body)
     @
-
   @
 
