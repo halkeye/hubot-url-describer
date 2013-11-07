@@ -49,7 +49,7 @@ module.exports = (robot) ->
             elm.children.forEach (child) ->
               if (child.type == 'text')
                 titles.push(child.data)
-            title = title + _S.trim(titles.join(''))
+            title = title + _.unescape(_S.trim(titles.join('')))
           if ( elm.name == 'twitter:title' )
             console.log(elm)
             title = _S.trim(elm.value)
