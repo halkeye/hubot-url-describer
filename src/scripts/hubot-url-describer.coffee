@@ -55,7 +55,7 @@ module.exports = (robot) ->
             title = _S.trim(elm.value)
 
       if (title.length > 0)
-        robot.send _S.unescapeHTML(title)
+        msg.send _S.unescapeHTML(title)
       else
         # err
 

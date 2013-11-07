@@ -76,4 +76,4 @@ describe 'hubot_url_describer', ()->
         if (url[2] == false)
           false.should.eql(false)
         else
-          robot.adapter.send.args[0][0].should.eql(url[2])
+          robot.adapter.send.args[0][1].should.eql(url[2])
