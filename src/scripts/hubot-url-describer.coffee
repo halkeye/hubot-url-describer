@@ -66,6 +66,9 @@ module.exports = (robot) ->
       return
 
     request.get url, {}, (err,res,body) ->
+      if err
+        msg.send "Error getting " + url + ": " + err
+        return
       if res.headers['content-type'].indexOf('text/html') != 0
         return
       new HtmlParser.Parser(handler).parseComplete(body)
