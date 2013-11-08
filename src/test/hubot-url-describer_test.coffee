@@ -50,6 +50,12 @@ urls = [
     'https://lh6.googleusercontent.com/-hddEYyXVeZM/AAAAAAAAAAI/AAAAAAAAAAA/ghwEL1-FHdE/s48-c-k-no/photo.jpg',
     'gravatar.png',
     false
+  ],
+  # This one has an mdash in it
+  [
+    'http://www.kickstarter.com/projects/modrobotics/moss-the-dynamic-robot-construction-kit?ref=category',
+    'mdash.html',
+    'MOSS - The Dynamic Robot Construction Kit by Modular Robotics -- Kickstarter'
   ]
 ]
 
