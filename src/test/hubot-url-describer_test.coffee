@@ -56,6 +56,12 @@ urls = [
     'http://www.kickstarter.com/projects/modrobotics/moss-the-dynamic-robot-construction-kit?ref=category',
     'mdash.html',
     'MOSS - The Dynamic Robot Construction Kit by Modular Robotics -- Kickstarter'
+  ],
+  # issue #3 - Reports multiline
+  [
+    'https://plus.google.com/110558071969009568835/posts/CyaYM9qXmM1',
+    'gplus.html',
+    'Koushik Dutta - Google+ - How Software Companies Die'
   ]
 ]
 

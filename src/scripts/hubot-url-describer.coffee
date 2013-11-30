@@ -48,11 +48,11 @@ module.exports = (robot) ->
             titles = []
             elm.children.forEach (child) ->
               if (child.type == 'text')
-                titles.push(child.data)
+                titles.push( _S.trim(child.data).split("\n")[0] )
             title = title + _S.trim(titles.join(''))
-          if ( elm.name == 'twitter:title' )
-            console.log(elm)
-            title = _S.trim(elm.value)
+          #if ( elm.name == 'twitter:title' )
+          #  console.log(elm)
+          #  title = _S.trim(elm.value)
 
       if (title.length > 0)
         msg.send _S.unescapeHTML(title.replace('&mdash;', '--'))
