@@ -6,3 +6,4 @@ grunt.coffee
 grunt.js
 
 out/
+src/test
