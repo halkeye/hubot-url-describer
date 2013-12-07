@@ -1,7 +1,7 @@
 {
   "name": "hubot-url-describer",
   "description": "Simple hubot script that grabs a url and outputs the title.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/halkeye/hubot-url-describer",
   "author": {
     "name": "Gavin Mogan",
