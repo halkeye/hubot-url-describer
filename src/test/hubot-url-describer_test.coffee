@@ -62,6 +62,17 @@ urls = [
     'https://plus.google.com/110558071969009568835/posts/CyaYM9qXmM1',
     'gplus.html',
     'Koushik Dutta - Google+ - How Software Companies Die'
+  ],
+  # issue #4 - Page has no title
+  [
+    'http://www.thinkgeek.com/edm/20131206.shtml?cpg=gplus',
+    'thinkgeek.html',
+    'No title found'
+  ],
+  [
+    'https://dev.twitter.com/docs/cards/types/summary-card',
+    'twitter-card.html',
+    'Summary Card | Twitter Developers' # title should not be overridden by twitter:title
   ]
 ]
 
@@ -86,6 +97,9 @@ describe 'hubot_url_describer', ()->
 
       it 'output title', ()->
         if (url[2] == false)
-          false.should.eql(false)
+          robot.adapter.send.args.should.be.empty
         else
+          robot.adapter.send.args.should.not.be.empty
+          if (!robot.adapter.send.args[0])
+            return
           robot.adapter.send.args[0][1].should.eql(url[2])

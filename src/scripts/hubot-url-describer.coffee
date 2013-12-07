@@ -35,29 +35,25 @@ module.exports = (robot) ->
     url = msg.match[0]
 
     title = ""
+    tagstack = []
 
-    handler = new HtmlParser.DomHandler (err,dom) ->
-      # html tag
-      dom = _.findWhere dom, { type: 'tag' }
-      # Head Tag
-      dom = _.findWhere dom.children, { name: 'head' }
-
-      dom.children.forEach (elm) ->
-        if ( title == "" )
-          if ( elm.name == 'title' )
-            titles = []
-            elm.children.forEach (child) ->
-              if (child.type == 'text')
-                titles.push( _S.trim(child.data).split("\n")[0] )
-            title = title + _S.trim(titles.join(''))
-          #if ( elm.name == 'twitter:title' )
-          #  console.log(elm)
-          #  title = _S.trim(elm.value)
-
-      if (title.length > 0)
-        msg.send _S.unescapeHTML(title.replace('&mdash;', '--'))
-      else
-        # err
+    parser  = new HtmlParser.Parser
+      onopentag: (name, attribs) ->
+        tagstack.push(name)
+        if ( title != "" and name == 'twitter:title' )
+          title = _S.trim(attribs['content']).split("\n")[0]
+      ontext: (text) ->
+        tagname = tagstack[tagstack.length - 1]
+        if tagname == "title"
+          title = _S.trim(text).split("\n")[0]
+        #else if ( title != "" and tagname == 'twitter:title' )
+      onclosetag: (tagname) ->
+        tagstack.pop()
+      onend: () ->
+        if (title.length > 0)
+          msg.send _S.unescapeHTML(title.replace('&mdash;', '--'))
+        else
+          msg.send 'No title found'
 
     urldata = Url.parse(url)
     path = urldata.path.split('?')[0]
@@ -71,7 +67,8 @@ module.exports = (robot) ->
         return
       if res.headers['content-type'].indexOf('text/html') != 0
         return
-      new HtmlParser.Parser(handler).parseComplete(body)
+      parser.write(body)
+      parser.end()
     @
   @
 
