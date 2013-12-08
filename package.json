@@ -29,7 +29,7 @@
     "test": "grunt simplemocha"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.4.0",
+    "grunt-contrib-watch": "~0.4.4",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-coffeelint": "~0.0.6",
     "grunt-simple-mocha": "~0.4.0",
@@ -46,7 +46,6 @@
     "htmlparser2": "~3.3.0",
     "require": "~0.5.0",
     "request": "~2.27.0",
-    "sinon": "~1.7.3",
     "underscore.string": "~2.3.3",
     "underscore": "~1.5.2"
   }

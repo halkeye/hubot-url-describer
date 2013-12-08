@@ -13,6 +13,10 @@ _(Nothing yet)_
 
 ## Release History
 
+0.1.2 - ???
+
+ * Update node module version
+ 
 0.1.1 - 2013-12-07 
 
  * Switched html parser to use a SAX design as it should be faster and code is a lot cleaner
