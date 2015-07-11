@@ -1,5 +1,8 @@
 'use strict'
 
+
+process.env.EXPRESS_PORT = process.env.PORT = 0
+
 Hubot = require('hubot')
 Path = require('path')
 Url = require 'url'
