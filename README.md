@@ -16,6 +16,7 @@ _(Nothing yet)_
 0.1.2 - ???
 
  * Update node module version
+ * Add hubot-scripts keyword to keywords list
  
 0.1.1 - 2013-12-07 
 
@@ -27,7 +28,3 @@ _(Nothing yet)_
 ## License
 Copyright (c) 2013 Gavin Mogan
 Licensed under the MIT license.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/halkeye/hubot-url-describer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
