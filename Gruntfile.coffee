@@ -46,12 +46,10 @@ module.exports = (grunt)->
       coffeeTest:
         files: '<%= coffeelint.test.src %>'
         tasks: [ 'coffeelint:test', 'simplemocha']
-    clean: ['out/']
 
   # plugins.
   grunt.loadNpmTasks 'grunt-simple-mocha'
   grunt.loadNpmTasks 'grunt-coffeelint'
-  grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # tasks.
