@@ -29,23 +29,24 @@
     "test": "grunt simplemocha"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.4.4",
-    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-contrib-clean": "~1.0.0",
     "grunt-coffeelint": "~0.0.6",
     "grunt-simple-mocha": "~0.4.0",
-    "should": "~1.2.2",
-    "grunt": "~0.4.1",
-    "nock": "~0.22.1",
-    "sinon": "~1.7.3",
-    "hubot": "~2.6.4"
+    "should": "~10.0.0",
+    "grunt": "~1.0.1",
+    "nock": "~8.0.0",
+    "sinon": "~1.17.5",
+    "hubot": "~2.19.0"
   },
   "keywords": [
-    "hubot", "hubot-scripts"
+    "hubot",
+    "hubot-scripts"
   ],
   "dependencies": {
-    "htmlparser2": "~3.3.0",
-    "request": "~2.27.0",
-    "underscore.string": "~2.3.3",
-    "underscore": "~1.5.2"
+    "htmlparser2": "~3.9.1",
+    "request": "~2.74.0",
+    "underscore.string": "~3.3.4",
+    "underscore": "~1.8.3"
   }
 }
