@@ -28,7 +28,7 @@
     "grunt-contrib-clean": "~1.0.0",
     "grunt-coffeelint": "~0.0.6",
     "grunt-simple-mocha": "~0.4.0",
-    "should": "~11.1.1",
+    "should": "~11.2.1",
     "grunt": "~1.0.1",
     "nock": "~9.0.0",
     "sinon": "~1.17.5",
