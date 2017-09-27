@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "htmlparser2": "~3.9.1",
-    "request": "~2.82.0",
+    "request": "~2.83.0",
     "underscore.string": "~3.3.4",
     "underscore": "~1.8.3"
   }
