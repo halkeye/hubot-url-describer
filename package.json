@@ -15,28 +15,23 @@
   "bugs": {
     "url": "https://github.com/halkeye/hubot-url-describer/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/halkeye/hubot-url-describer/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "src/scripts/hubot-url-describer",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 4"
   },
   "scripts": {
     "test": "grunt simplemocha"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~1.0.0",
-    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-clean": "~1.1.0",
     "grunt-coffeelint": "~0.0.6",
     "grunt-simple-mocha": "~0.4.0",
-    "should": "~11.1.1",
+    "should": "~13.1.0",
     "grunt": "~1.0.1",
     "nock": "~9.0.2",
-    "sinon": "~1.17.5",
+    "sinon": "~4.0.0",
     "hubot": "~2.19.0"
   },
   "keywords": [
@@ -45,7 +40,7 @@
   ],
   "dependencies": {
     "htmlparser2": "~3.9.1",
-    "request": "~2.76.0",
+    "request": "~2.83.0",
     "underscore.string": "~3.3.4",
     "underscore": "~1.8.3"
   }
