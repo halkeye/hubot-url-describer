@@ -23,8 +23,7 @@ Url = require 'url'
 Querystring = require 'querystring'
 Path = require 'path'
 HtmlParser = require 'htmlparser2'
-_ = require 'underscore'
-_S = require 'underscore.string'
+unescapeHTML = require 'unescape-html'
 
 ignore_extensions = ['.png','.jpg','.jpeg','.gif','.txt','.zip','.tar.bz','.js','.css']
 if process.env.HUBOT_HTTP_INFO_IGNORE_EXTS
@@ -41,17 +40,17 @@ module.exports = (robot) ->
       onopentag: (name, attribs) ->
         tagstack.push(name)
         if ( title != "" and name == 'twitter:title' )
-          title = _S.trim(attribs['content']).split("\n")[0]
+          title = attribs['content'].trim().split("\n")[0]
       ontext: (text) ->
         tagname = tagstack[tagstack.length - 1]
         if tagname == "title"
-          title = _S.trim(text).split("\n")[0]
+          title = text.trim().split("\n")[0]
         #else if ( title != "" and tagname == 'twitter:title' )
       onclosetag: (tagname) ->
         tagstack.pop()
       onend: () ->
         if (title.length > 0)
-          msg.send _S.unescapeHTML(title.replace('&mdash;', '--'))
+          msg.send unescapeHTML(title.replace('&mdash;', '--'))
         else
           msg.send 'No title found'
 
