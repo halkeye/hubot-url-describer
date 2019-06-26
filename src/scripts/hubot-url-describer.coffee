@@ -5,7 +5,7 @@
 #   None
 #
 # Configuration:
-#   None
+#   HUBOT_URL_DESCRIBER_IGNORE_USERS
 #
 # Commands:
 #   None
@@ -26,11 +26,15 @@ HtmlParser = require 'htmlparser2'
 unescapeHTML = require 'unescape-html'
 
 ignore_extensions = ['.png','.jpg','.jpeg','.gif','.txt','.zip','.tar.bz','.js','.css']
+ignore_users = (process.env.HUBOT_GITHUB_ISSUE_LINK_IGNORE_USERS or '').split ','
 if process.env.HUBOT_HTTP_INFO_IGNORE_EXTS
   ignore_extensions = process.env.HUBOT_HTTP_INFO_IGNORE_EXTS.split(',')
 regex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/i
 module.exports = (robot) ->
   robot.hear regex, (msg) ->
+    if ignore_users.indexOf(msg.message.user.name) is not -1
+      return
+
     url = msg.match[0]
 
     title = ""
