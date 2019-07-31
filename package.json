@@ -22,8 +22,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "release": "np && git push --tags && conventional-github-releaser -p angular",
-    "postdeploy": "conventional-github-releaser -p angular"
+    "release": "np && git push --tags && conventional-github-releaser -p eslint",
+    "postdeploy": "conventional-github-releaser -p eslint"
   },
   "devDependencies": {
     "coffee-script": "^1.12.7",
