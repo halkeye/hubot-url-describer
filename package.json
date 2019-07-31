@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "htmlparser2": "~3.9.1",
-    "request": "~2.83.0",
+    "request": "~2.88.0",
     "unescape-html": "^1.1.0"
   }
 }
