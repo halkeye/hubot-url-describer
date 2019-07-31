@@ -5,8 +5,8 @@
   "homepage": "https://github.com/halkeye/hubot-url-describer",
   "author": {
     "name": "Gavin Mogan",
-    "email": "gavin@kodekoan.com",
-    "url": "http://www.kodekoan.com"
+    "email": "npm@gavinmogan.com",
+    "url": "http://www.gavinmogan.com"
   },
   "repository": {
     "type": "git",
@@ -16,23 +16,23 @@
     "url": "https://github.com/halkeye/hubot-url-describer/issues"
   },
   "license": "MIT",
-  "main": "src/scripts/hubot-url-describer",
+  "main": "index.js",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8"
   },
   "scripts": {
-    "test": "grunt simplemocha"
+    "test": "mocha",
+    "release": "np && git push --tags && conventional-github-releaser -p angular",
+    "postdeploy": "conventional-github-releaser -p angular"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~1.0.0",
-    "grunt-contrib-clean": "~1.1.0",
-    "grunt-coffeelint": "~0.0.6",
-    "grunt-simple-mocha": "~0.4.0",
-    "should": "~13.2.0",
     "grunt": "~1.0.1",
+    "hubot-test-helper": "^1.9.0",
+    "mocha": "^6.2.0",
     "nock": "~9.2.0",
-    "sinon": "~5.0.0",
-    "hubot": "~2.19.0"
+    "np": "^5.0.3",
+    "should": "~13.2.0",
+    "sinon": "~5.0.0"
   },
   "keywords": [
     "hubot",

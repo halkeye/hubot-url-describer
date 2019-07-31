@@ -1,0 +1,4 @@
+--require coffee-script/register
+-r should
+-R spec
+src/test
