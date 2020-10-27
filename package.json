@@ -40,7 +40,7 @@
     "hubot-scripts"
   ],
   "dependencies": {
-    "htmlparser2": "~4.1.0",
+    "htmlparser2": "~5.0.1",
     "request": "~2.88.0",
     "unescape-html": "^1.1.0"
   }
