@@ -16,7 +16,7 @@ jobs:
         with:
           script: |
             github.issues.createComment({
-              issue_number: ${{ github.event.number }}
+              issue_number: ${{ github.event.number }},
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
               body: '@dependabot merge'
