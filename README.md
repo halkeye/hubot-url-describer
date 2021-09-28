@@ -1,3 +1,5 @@
+# Migrated to https://github.com/halkeye/hubot-plugins/tree/master/packages/hubot-url-describer
+
 # hubot-url-describer
 
 Simple hubot script that grabs a url and outputs the title
